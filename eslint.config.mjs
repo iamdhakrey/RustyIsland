@@ -222,6 +222,10 @@ export default tseslint.config(
                 {
                     avoidEscape: true,
                 },
+                'double',
+                {
+                    avoidEscape: true,
+                }
             ],
             'require-await': 'error',
             'rest-spread-spacing': 'error',
