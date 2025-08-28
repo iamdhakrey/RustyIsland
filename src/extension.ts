@@ -6,6 +6,7 @@ import Gio from 'gi://Gio';
 import GLib from 'gi://GLib';
 import Clutter from 'gi://Clutter';
 import { Extension, ExtensionMetadata } from 'resource:///org/gnome/shell/extensions/extension.js';
+import { getDateTime } from '@utils/dateutil';
 
 const DYNAMIC_ISLAND_STATES = {
   COMPACT: 'compact',
@@ -43,6 +44,7 @@ export default class DynIslandExtension extends Extension {
   private currentState: string;
   private isExpanded: boolean;
   private musicPollId: number | null;
+  private datetimePollId: number | null;
   private statusIcon: St.Icon | null;
   private statusText: St.Label | null;
   private musicMetadata: MusicMetadata | null;
@@ -67,6 +69,7 @@ export default class DynIslandExtension extends Extension {
     this.currentState = DYNAMIC_ISLAND_STATES.COMPACT;
     this.isExpanded = false;
     this.musicPollId = null;
+    this.datetimePollId = null;
     this.statusIcon = null;
     this.statusText = null;
     this.musicMetadata = null;
@@ -148,6 +151,13 @@ export default class DynIslandExtension extends Extension {
     this.dynamicIsland.connect('leave-event', () => {
       if (this.dynamicIsland) this.dynamicIsland.remove_style_pseudo_class('hover');
     });
+    global.stage.add_child(this.dynamicIsland);
+    // get x center position
+    const primaryMonitor = Main.layoutManager.primaryMonitor;
+    if (primaryMonitor) {
+      const x = primaryMonitor.x + (primaryMonitor.width / 2) - (this.dynamicIsland.width / 2);
+      this.dynamicIsland.set_position(x, 0);
+    }
   }
 
   _createCompactContent() {
@@ -171,6 +181,7 @@ export default class DynIslandExtension extends Extension {
       text: 'Dynamic Island',
       style_class: 'status-text',
     });
+    this._pollDateTimeStatus();
 
     // this.compactContent.add_child(this.statusIcon);
     this.compactContent.add_child(this.statusText);
@@ -319,7 +330,6 @@ export default class DynIslandExtension extends Extension {
   }
 
   _pollMusicStatus() {
-    // Poll music status from Rust backend every 1 second
     this.musicPollId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
       this._updateMusicFromBackend();
       return GLib.SOURCE_CONTINUE;
@@ -380,6 +390,25 @@ export default class DynIslandExtension extends Extension {
       // No music playing
       this.trackTitle.set_text('No Music Playing');
       this.trackArtist.set_text('');
+    }
+  }
+
+
+  _pollDateTimeStatus() {
+    this.datetimePollId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 1000, () => {
+      this._updateDateTime();
+      return GLib.SOURCE_CONTINUE;
+    });
+  }
+
+  _updateDateTime() {
+    try {
+      const dateTime = getDateTime();
+      if (this.statusText) {
+        this.statusText.text = dateTime;
+      }
+    } catch (e) {
+      log(`Dynamic Island: Error updating date and time: ${e instanceof Error ? e.message : String(e)}`);
     }
   }
 
@@ -496,6 +525,10 @@ export default class DynIslandExtension extends Extension {
     if (this.musicPollId) {
       GLib.source_remove(this.musicPollId);
       this.musicPollId = null;
+    }
+    if (this.datetimePollId) {
+      GLib.source_remove(this.datetimePollId);
+      this.datetimePollId = null;
     }
   }
 }
