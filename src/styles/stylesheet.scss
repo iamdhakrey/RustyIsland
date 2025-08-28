@@ -1,0 +1,163 @@
+/* Dynamic Island Styles */
+.dynamic-island {
+  background-color: rgba(40, 40, 40, 0.9);
+  border-radius: 20px;
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  /* padding: 8px 16px;
+  margin: 4px; */
+  min-width: 60px;
+  min-height: 30px;
+}
+
+.dynamic-island:hover {
+  background-color: rgba(60, 60, 60, 0.9);
+}
+
+.dynamic-island.compact {
+  min-width: 80px;
+  border-radius: 20px;
+}
+
+.dynamic-island.expanded {
+  min-width: 300px;
+  min-height: 100px;
+  /* border-radius: 25px; */
+  padding: 12px 20px;
+}
+
+.island-container {
+  spacing: 8px;
+}
+
+/* Compact Content */
+.compact-content {
+  spacing: 6px;
+  min-width: 100px;
+}
+
+.status-icon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.status-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  font-weight: bold;
+  /* margin-left: 4px; */
+}
+
+/* Expanded Content */
+.expanded-content {
+  spacing: 16px;
+}
+
+/* Music Section */
+.music-section {
+  spacing: 12px;
+}
+
+.album-art {
+  /* color: rgba(255, 255, 255, 0.8); */
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  border-radius: 8px;
+  min-height: 30px;
+  /* padding: 6px; */
+}
+
+.track-info {
+  /* spacing: 2px; */
+  min-width: 120px;
+}
+
+.track-title {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.track-artist {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 9px;
+}
+
+.music-controls {
+  spacing: 2px;
+}
+
+.control-button {
+  /* background-color: rgba(255, 255, 255, 0.1); */
+  /* border: none;
+  border-radius: 16px;
+  padding: 8px;
+  /* min-width: 32px; */
+  min-height: 32px;
+  /* transition: all 0.2s ease; */
+}
+
+.control-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  /* transform: scale(1.05); */
+}
+
+.control-button:active {
+  background-color: rgba(255, 255, 255, 0.3);
+  /* transform: scale(0.98); */
+}
+
+.control-button StIcon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.control-button.play-pause {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.control-button.play-pause StIcon {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.control-button.play-pause:hover {
+  background-color: rgba(255, 255, 255, 1.0);
+}
+
+/* Notification Section */
+.notification-section {
+  spacing: 10px;
+}
+
+.notification-icon {
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(0, 122, 255, 0.3);
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.notification-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 11px;
+  max-width: 200px;
+}
+
+/* Animation Classes */
+.dynamic-island.notification-mode {
+  background-color: rgba(0, 122, 255, 0.2);
+  border: 1px solid rgba(0, 122, 255, 0.3);
+}
+
+.dynamic-island.music-mode {
+  background-color: rgba(255, 69, 58, 0.15);
+  border: 1px solid rgba(255, 69, 58, 0.2);
+}
+
+/* Focus and Accessibility */
+.dynamic-island:focus {
+  outline: 2px solid rgba(0, 122, 255, 0.6);
+  outline-offset: 2px;
+  /* increase height for better accessibility */
+  min-height: 100px;
+}
+
+/* Dark Theme Adjustments */
+.dynamic-island {
+  color: rgba(255, 255, 255, 0.9);
+}
