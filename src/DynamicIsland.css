@@ -1,0 +1,384 @@
+/* Dynamic Island Styles */
+.dynamic-island {
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: grab;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    user-select: none;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.dynamic-island:active {
+    cursor: grabbing;
+}
+
+.dynamic-island.compact {
+    width: 320px;
+    height: 40px;
+    min-height: 40px;
+}
+
+.dynamic-island.expanded {
+    width: 380px;
+    height: auto;
+    min-height: 200px;
+    border-radius: 24px;
+}
+
+.dynamic-island.hovered {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.dynamic-island.dragging {
+    cursor: grabbing !important;
+    transform: scale(1.05);
+    transition: transform 0.1s ease;
+    user-select: none;
+    pointer-events: none;
+    /* Prevent interference during drag */
+}
+
+.dynamic-island.dragging * {
+    pointer-events: none;
+    /* Prevent child elements from interfering */
+}
+
+/* Font Awesome Icon Styles */
+.dynamic-island .icon,
+.dynamic-island .indicator-icon,
+.dynamic-island .stat-icon,
+.dynamic-island .drag-icon,
+.dynamic-island .close-icon,
+.dynamic-island .processes-icon,
+.dynamic-island .process-icon,
+.dynamic-island .loading-icon {
+    display: inline-block;
+    margin-right: 6px;
+    transition: all 0.2s ease;
+}
+
+.dynamic-island .icon {
+    font-size: 14px;
+    color: #64B5F6;
+}
+
+.dynamic-island .indicator-icon {
+    font-size: 12px;
+    color: #81C784;
+}
+
+.dynamic-island .stat-icon {
+    font-size: 16px;
+    color: #FFB74D;
+}
+
+.dynamic-island .drag-icon {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
+    opacity: 0.7;
+}
+
+.dynamic-island .close-icon {
+    font-size: 16px;
+    color: #F48FB1;
+}
+
+.dynamic-island .processes-icon {
+    font-size: 14px;
+    color: #A5D6A7;
+}
+
+.dynamic-island .process-icon {
+    font-size: 12px;
+    color: #BCAAA4;
+}
+
+.dynamic-island .loading-icon {
+    font-size: 16px;
+    color: #64B5F6;
+}
+
+/* Loading icon spin animation */
+.fa-spin {
+    animation: fa-spin 2s infinite linear;
+}
+
+@keyframes fa-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Compact Mode Styles */
+.island-content.compact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    height: 100%;
+}
+
+.time-display {
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.time-display.large {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.system-indicators {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.cpu-indicator,
+.memory-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.indicator-icon {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.indicator-value {
+    font-variant-numeric: tabular-nums;
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Expanded Mode Styles */
+.island-content.expanded {
+    padding: 16px;
+}
+
+.expanded-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.close-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.system-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.stat-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.8;
+    min-width: 80px;
+}
+
+.stat-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stat-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.stat-fill.cpu-fill {
+    background: linear-gradient(90deg, #00d4ff, #0099cc);
+}
+
+.stat-fill.memory-fill {
+    background: linear-gradient(90deg, #ff6b6b, #cc5555);
+}
+
+.stat-value {
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 35px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Processes Section */
+.processes {
+    margin-top: 8px;
+}
+
+.processes-title {
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.process-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    grid-row: inherit;
+}
+
+.process-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    font-size: 11px;
+}
+
+.process-name {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.process-cpu {
+    color: #00d4ff;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    min-width: 35px;
+    text-align: right;
+}
+
+.process-memory {
+    color: #ff9500;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .dynamic-island {
+        background: rgba(0, 0, 0, 0.9);
+        border-color: rgba(255, 255, 255, 0.15);
+    }
+}
+
+/* Light mode adjustments */
+@media (prefers-color-scheme: light) {
+    .dynamic-island {
+        background: rgba(255, 255, 255, 0.9);
+        color: #000;
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .time-display {
+        color: #000;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+
+    .close-btn {
+        background: rgba(0, 0, 0, 0.1);
+        color: #000;
+    }
+
+    .close-btn:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-bar {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .process-item {
+        background: rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.island-content.expanded {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 400px) {
+    .dynamic-island.compact {
+        width: 280px;
+    }
+
+    .dynamic-island.expanded {
+        width: 340px;
+    }
+}
