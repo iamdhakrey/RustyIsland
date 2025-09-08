@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "rustynotch",
+  "productName": "rustyisland",
   "version": "0.1.0",
-  "identifier": "com.rustynotch.app",
+  "identifier": "com.rustyisland.app",
   "build": {
     "beforeDevCommand": "bun run dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "RustyNotch",
+        "title": "RustyIsland",
         "width": 320,
         "height": 40,
         "resizable": false,
